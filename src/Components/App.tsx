@@ -1,10 +1,11 @@
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { useQuery } from 'react-apollo-hooks'
 import { gql } from 'apollo-boost'
 import GlobalStyles from '../Styles/GlobalStyles'
-import Theme from '../Styles/Theme'
+import theme from '../Styles/Theme'
 import AppRouter from './Router'
+import Footer from './Footer'
 
 const QUERY = gql`
   {
@@ -12,16 +13,23 @@ const QUERY = gql`
   }
 `
 
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 935px;
+  margin: 0 auto;
+`
+
 const App: React.FC = () => {
   const { data } = useQuery(QUERY)
 
   return (
-    <React.Fragment>
-      <GlobalStyles />
-      <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <GlobalStyles />
         <AppRouter isLoginedIn={data.isLoggedIn} />
-      </ThemeProvider>
-    </React.Fragment>
+        <Footer />
+      </Wrapper>
+    </ThemeProvider>
   )
 }
 

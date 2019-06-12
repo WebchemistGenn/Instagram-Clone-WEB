@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Feed from '../Routes/Feed'
 import Auth from '../Routes/Auth'
 

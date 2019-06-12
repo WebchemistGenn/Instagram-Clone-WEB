@@ -1,4 +1,4 @@
-export default {
+const theme = {
   bgColor: '#FAFAFA',
   blackColor: '#262626',
   darkGreyColor: '#999',
@@ -14,3 +14,5 @@ export default {
     background-color: white;
   `,
 }
+export type ThemeType = typeof theme
+export default theme
