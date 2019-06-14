@@ -1,7 +1,23 @@
-import React from "react"
+import React, { useState } from 'react'
+import AuthPresenter from './AuthPresenter'
 
-const AuthContainer = () => {
-  return <div>aa</div>
+import useInput from '../../Hooks/useInput'
+
+export default () => {
+  const [action, setAction] = useState('logIn')
+  const username = useInput('')
+  const firstName = useInput('')
+  const lastName = useInput('')
+  const email = useInput('')
+
+  return (
+    <AuthPresenter
+      setAction={setAction}
+      action={action}
+      username={username}
+      firstName={firstName}
+      lastName={lastName}
+      email={email}
+    />
+  )
 }
-
-export default AuthContainer
