@@ -11,6 +11,7 @@ export default ({
   firstName,
   lastName,
   setAction,
+  onSubmit,
 }: {
   action: any
   username: any
@@ -18,41 +19,40 @@ export default ({
   firstName: any
   lastName: any
   setAction: any
-}) => {
-  return (
-    <Wrapper>
-      <Form>
-        {action === 'logIn' ? (
-          <form>
-            <Input placeholder={'Username'} {...username} />
-            <Button text={'Log in'} />
-          </form>
-        ) : (
-          <form>
-            <Input placeholder={'First name'} {...firstName} />
-            <Input placeholder={'Last name'} {...lastName} />
-            <Input placeholder={'Email'} {...email} type='email' />
-            <Input placeholder={'Username'} {...username} />
-            <Button text={'Sign up'} />
-          </form>
-        )}
-      </Form>
-      <StateChanger>
-        {action === 'logIn' ? (
-          <>
-            Don't have an account?{' '}
-            <Link onClick={() => setAction('signUp')}>Sign up</Link>
-          </>
-        ) : (
-          <>
-            Have an account?{' '}
-            <Link onClick={() => setAction('logIn')}>Log in</Link>
-          </>
-        )}
-      </StateChanger>
-    </Wrapper>
-  )
-}
+  onSubmit: any
+}) => (
+  <Wrapper>
+    <Form>
+      {action === 'logIn' ? (
+        <form onSubmit={onSubmit}>
+          <Input placeholder={'Email'} {...email} />
+          <Button text={'Log in'} />
+        </form>
+      ) : (
+        <form onSubmit={onSubmit}>
+          <Input placeholder={'First name'} {...firstName} />
+          <Input placeholder={'Last name'} {...lastName} />
+          <Input placeholder={'Email'} {...email} type='email' />
+          <Input placeholder={'Username'} {...username} />
+          <Button text={'Sign up'} />
+        </form>
+      )}
+    </Form>
+    <StateChanger>
+      {action === 'logIn' ? (
+        <>
+          Don't have an account?{' '}
+          <Link onClick={() => setAction('signUp')}>Sign up</Link>
+        </>
+      ) : (
+        <>
+          Have an account?{' '}
+          <Link onClick={() => setAction('logIn')}>Log in</Link>
+        </>
+      )}
+    </StateChanger>
+  </Wrapper>
+)
 
 const Wrapper = styled.div`
   min-height: 80vh;

@@ -3,11 +3,11 @@ import { useState } from 'react'
 export default (defaultValue: any) => {
   const [value, setValue] = useState(defaultValue)
 
-  const onChange = (e: any) => {
+  const onChange = (event: any) => {
     const {
       target: { value },
-    } = e
+    } = event
     setValue(value)
   }
-  return { value, onChange }
+  return { value, onChange, setValue }
 }
