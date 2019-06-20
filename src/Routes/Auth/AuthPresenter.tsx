@@ -11,7 +11,8 @@ export default ({
   firstName,
   lastName,
   setAction,
-  onSubmit,
+  onLogin,
+  onJoin,
 }: {
   action: any
   username: any
@@ -19,17 +20,18 @@ export default ({
   firstName: any
   lastName: any
   setAction: any
-  onSubmit: any
+  onLogin: any
+  onJoin: any
 }) => (
   <Wrapper>
     <Form>
       {action === 'logIn' ? (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onLogin}>
           <Input placeholder={'Email'} {...email} />
           <Button text={'Log in'} />
         </form>
       ) : (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onJoin}>
           <Input placeholder={'First name'} {...firstName} />
           <Input placeholder={'Last name'} {...lastName} />
           <Input placeholder={'Email'} {...email} type='email' />
