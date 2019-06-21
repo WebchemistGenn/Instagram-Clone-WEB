@@ -28,7 +28,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Wrapper>
         <GlobalStyles />
-        <AppRouter isLoginedIn={data.isLoggedIn} />
+        <AppRouter isLoggedIn={data.isLoggedIn} />
         <Footer />
         <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
       </Wrapper>

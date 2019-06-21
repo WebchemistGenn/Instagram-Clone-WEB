@@ -6,6 +6,7 @@ import Button from '../../Components/Buttom'
 
 export default ({
   action,
+  secret,
   username,
   email,
   firstName,
@@ -13,8 +14,10 @@ export default ({
   setAction,
   onLogin,
   onJoin,
+  onSecret,
 }: {
   action: any
+  secret: any,
   username: any
   email: any
   firstName: any
@@ -22,39 +25,47 @@ export default ({
   setAction: any
   onLogin: any
   onJoin: any
+  onSecret: any
 }) => (
-  <Wrapper>
-    <Form>
-      {action === 'logIn' ? (
-        <form onSubmit={onLogin}>
-          <Input placeholder={'Email'} {...email} />
-          <Button text={'Log in'} />
-        </form>
-      ) : (
-        <form onSubmit={onJoin}>
-          <Input placeholder={'First name'} {...firstName} />
-          <Input placeholder={'Last name'} {...lastName} />
-          <Input placeholder={'Email'} {...email} type='email' />
-          <Input placeholder={'Username'} {...username} />
-          <Button text={'Sign up'} />
-        </form>
-      )}
-    </Form>
-    <StateChanger>
-      {action === 'logIn' ? (
-        <>
-          Don't have an account?{' '}
-          <Link onClick={() => setAction('signUp')}>Sign up</Link>
-        </>
-      ) : (
-        <>
-          Have an account?{' '}
-          <Link onClick={() => setAction('logIn')}>Log in</Link>
-        </>
-      )}
-    </StateChanger>
-  </Wrapper>
-)
+    <Wrapper>
+      <Form>
+        {action === 'logIn' && (
+          <form onSubmit={onLogin}>
+            <Input placeholder={'Email'} {...email} />
+            <Button text={'Log in'} />
+          </form>
+        )}
+        {action === 'signUp' && (
+          <form onSubmit={onJoin}>
+            <Input placeholder={'First name'} {...firstName} />
+            <Input placeholder={'Last name'} {...lastName} />
+            <Input placeholder={'Email'} {...email} type='email' />
+            <Input placeholder={'Username'} {...username} />
+            <Button text={'Sign up'} />
+          </form>
+        )}
+        {action === 'confirm' && (
+          <form onSubmit={onSecret}>
+            <Input placeholder="Paste your secret" required {...secret} />
+            <Button text={'Confirm'} />
+          </form>
+        )}
+      </Form>
+      <StateChanger>
+        {action === 'logIn' ? (
+          <>
+            Don't have an account?{' '}
+            <Link onClick={() => setAction('signUp')}>Sign up</Link>
+          </>
+        ) : (
+            <>
+              Have an account?{' '}
+              <Link onClick={() => setAction('logIn')}>Log in</Link>
+            </>
+          )}
+      </StateChanger>
+    </Wrapper>
+  )
 
 const Wrapper = styled.div`
   min-height: 80vh;

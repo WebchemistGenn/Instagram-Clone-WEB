@@ -5,20 +5,21 @@ import Auth from '../Routes/Auth'
 
 const PublicRoutes = () => (
   <React.Fragment>
-    <Route exact path='/' component={Feed} />
+    <Route exact path='/' component={Auth} />
   </React.Fragment>
 )
 
 const PrivateRoutes = () => (
   <React.Fragment>
-    <Route exact path='/' component={Auth} />
+    <Route exact path='/' component={Feed} />
   </React.Fragment>
 )
 
-const AppRouter = ({ isLoginedIn = false }: { isLoginedIn: boolean }) => {
+const AppRouter = ({ isLoggedIn = false }: { isLoggedIn: boolean }) => {
+  console.log(isLoggedIn)
   return (
     <Router>
-      <Switch>{isLoginedIn ? <PrivateRoutes /> : <PublicRoutes />}</Switch>
+      <Switch>{isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}</Switch>
     </Router>
   )
 }

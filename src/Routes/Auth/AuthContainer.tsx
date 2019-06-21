@@ -2,11 +2,12 @@ import React, { useState, FormEvent } from 'react'
 import { useMutation } from 'react-apollo-hooks'
 import AuthPresenter from './AuthPresenter'
 import useInput from '../../Hooks/useInput'
-import { LOG_IN, CREATE_ACCOUNT } from './AuthQuery'
+import { LOG_IN, CREATE_ACCOUNT, CONFIRM_SECRET, LOCAL_LOG_IN } from './AuthQuery'
 import { toast } from 'react-toastify'
 
 export default () => {
   const [action, setAction] = useState('logIn')
+  const secret = useInput('')
   const username = useInput('')
   const firstName = useInput('')
   const lastName = useInput('')
@@ -24,6 +25,15 @@ export default () => {
     },
   })
 
+  const confirmSecretMutation = useMutation(CONFIRM_SECRET, {
+    variables: {
+      email: email.value,
+      secret: secret.value,
+    }
+  })
+
+  const localLogInMutation = useMutation(LOCAL_LOG_IN)
+
   const onLogin = async (event: FormEvent) => {
     event.preventDefault()
     if (email.value !== '') {
@@ -34,7 +44,8 @@ export default () => {
           toast.error('You dont have an account yet, create one')
           setTimeout(() => setAction('signUp'), 3000)
         } else {
-          // ! Secret 데이터 전달 OK
+          toast.success('인증메일이 전송되었습니다.');
+          setTimeout(() => setAction('confirm'), 3000)
         }
       } catch (error) {
         toast.error("Can't request secret, try again")
@@ -69,16 +80,31 @@ export default () => {
     }
   }
 
+  const onSecret = async (event: FormEvent) => {
+    event.preventDefault();
+    try {
+      const { data: { confirmSecret: token } } = await confirmSecretMutation()
+      if (token !== "" || token !== undefined) {
+        localLogInMutation({ variables: { token } })
+      }
+    } catch (error) {
+      toast.error('Cant confirm secret')
+    }
+
+  }
+
   return (
     <AuthPresenter
       setAction={setAction}
       action={action}
+      secret={secret}
       username={username}
       firstName={firstName}
       lastName={lastName}
       email={email}
       onLogin={onLogin}
       onJoin={onJoin}
+      onSecret={onSecret}
     />
   )
 }
