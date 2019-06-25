@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components'
 import { useQuery } from 'react-apollo-hooks'
 import { ToastContainer, toast } from 'react-toastify'
@@ -7,6 +8,7 @@ import { gql } from 'apollo-boost'
 import GlobalStyles from '../Styles/GlobalStyles'
 import theme from '../Styles/Theme'
 import AppRouter from './Router'
+import Header from './Header';
 import Footer from './Footer'
 
 const QUERY = gql`
@@ -17,7 +19,7 @@ const QUERY = gql`
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 935px;
+  max-width: ${p => p.theme.maxWidth};
   margin: 0 auto;
 `
 
@@ -26,12 +28,15 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Wrapper>
-        <GlobalStyles />
-        <AppRouter isLoggedIn={data.isLoggedIn} />
-        <Footer />
-        <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
-      </Wrapper>
+      <Router>
+        <Header />
+        <Wrapper>
+          <GlobalStyles />
+          <AppRouter isLoggedIn={data.isLoggedIn} />
+          <Footer />
+          <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+        </Wrapper>
+      </Router>
     </ThemeProvider>
   )
 }

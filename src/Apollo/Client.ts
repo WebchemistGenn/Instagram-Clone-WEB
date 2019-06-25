@@ -2,8 +2,8 @@ import ApolloClient from 'apollo-boost'
 import { defaults, resolvers } from './LocalState'
 
 export default new ApolloClient({
-  // uri: 'http://instagram-api.webchemist.net/',
-  uri: 'http://localhost:5000',
+  uri: 'http://instagram-api.webchemist.net/',
+  // uri: 'http://localhost:5000',
   clientState: {
     defaults,
     resolvers,

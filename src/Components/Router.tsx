@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Feed from '../Routes/Feed'
 import Auth from '../Routes/Auth'
 
@@ -18,9 +18,7 @@ const PrivateRoutes = () => (
 const AppRouter = ({ isLoggedIn = false }: { isLoggedIn: boolean }) => {
   console.log(isLoggedIn)
   return (
-    <Router>
-      <Switch>{isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}</Switch>
-    </Router>
+    <Switch>{isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}</Switch>
   )
 }
 
